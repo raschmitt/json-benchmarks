@@ -20,8 +20,8 @@ type ItemCheckResponse struct {
 	CheckId           				  		 string     	`json:"id"`
 	Code         					   		 string     	`json:"code"`
 	Description        				  	 	 string     	`json:"description"`
-	Batch         					 	 	 string     	`json:"batch,omitempty"`
-	UnitsOfMeasurement  				   []string     	`json:"unitsOfMeasurement"`
+	Batch         					 	 	 string     	`json:"batch"`
+	UnitsOfMeasurement  				   []string     	`json:"unitsOfMeasurement,omitempty"`
 	UnitOfMeasurement  				   		 string     	`json:"unitOfMeasurement"`
 	ManufactureDate  				   	     string     	`json:"manufactureDate"`
 	Document  				   	   DocumentResponse     	`json:"document"`

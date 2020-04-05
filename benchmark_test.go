@@ -19,6 +19,18 @@ func Benchmark_decode_UnloadCheckResponse_with_easyjson(b *testing.B) {
 		orderCode := "0004"
 		orderType := "OD"
 
+		//ITEM CHECK
+		itemCheckId := "F7FA6B06-299D-4540-BB05-ACCA4674ED0C"
+		itemCode := "564161"
+		itemBatch := "ASDAD87989"
+		itemDescription := "GFA VIDRO 1L"
+		itemUnitOfMeasurement := "UN"
+		itemManufactureDate := "04/04/2020"
+
+		//DOCUMENT
+		documentId := orderId
+		documentCode := orderCode
+
 		//BLITZED ITEM
 		blitzedItemCode := "564161"
 		blitzedItemAmount := "2"
@@ -33,6 +45,15 @@ func Benchmark_decode_UnloadCheckResponse_with_easyjson(b *testing.B) {
 						"id": "` + orderId + `", 
 						"code": "` + orderCode + `", 
 						"type": "` + orderType + `",
+						"items": [{
+ 							 "id": "` + itemCheckId + `",
+ 							 "code": "` + itemCode + `",
+							 "description": "` + itemDescription + `",
+							 "batch": "` + itemBatch + `",
+							 "unitOfMeasurement": "` + itemUnitOfMeasurement + `",
+							 "manufactureDate": "` + itemManufactureDate + `",
+							 "document": {"code": "` + documentCode + `", "id": "` + documentId + `"},
+						},
 						"blitzedItems": [{
  							 "itemCode": "` + blitzedItemCode + `",
  							 "amount": "` + blitzedItemAmount + `",
@@ -60,6 +81,18 @@ func Benchmark_decode_UnloadCheckResponse_with_json(b *testing.B) {
 		orderCode := "0004"
 		orderType := "OD"
 
+		//ITEM CHECK
+		itemCheckId := "F7FA6B06-299D-4540-BB05-ACCA4674ED0C"
+		itemCode := "564161"
+		itemBatch := "ASDAD87989"
+		itemDescription := "GFA VIDRO 1L"
+		itemUnitOfMeasurement := "UN"
+		itemManufactureDate := "04/04/2020"
+
+		//DOCUMENT
+		documentId := orderId
+		documentCode := orderCode
+
 		//BLITZED ITEM
 		blitzedItemCode := "564161"
 		blitzedItemAmount := "2"
@@ -74,6 +107,15 @@ func Benchmark_decode_UnloadCheckResponse_with_json(b *testing.B) {
 						"id": "` + orderId + `", 
 						"code": "` + orderCode + `", 
 						"type": "` + orderType + `",
+						"items": [{
+ 							 "id": "` + itemCheckId + `",
+ 							 "code": "` + itemCode + `",
+							 "description": "` + itemDescription + `",
+							 "batch": "` + itemBatch + `",
+							 "unitOfMeasurement": "` + itemUnitOfMeasurement + `",
+							 "manufactureDate": "` + itemManufactureDate + `",
+							 "document": {"code": "` + documentCode + `", "id": "` + documentId + `"},
+						},
 						"blitzedItems": [{
  							 "itemCode": "` + blitzedItemCode + `",
  							 "amount": "` + blitzedItemAmount + `",
@@ -101,25 +143,41 @@ func Benchmark_encode_UnloadCheckResponse_with_easyjson(b *testing.B) {
 		orderCode := "0004"
 		orderType := "OD"
 
+		//ITEM CHECK
+		itemCheckId := "F7FA6B06-299D-4540-BB05-ACCA4674ED0C"
+		itemCode := "564161"
+		itemBatch := "ASDAD87989"
+		itemDescription := "GFA VIDRO 1L"
+		itemUnitsOfMeasurement := []string {"PL", "UN", "CX"}
+		itemUnitOfMeasurement := "UN"
+		itemManufactureDate := "04/04/2020"
+
+		//DOCUMENT
+		documentId := orderId
+		documentCode := orderCode
+
 		//BLITZED ITEM
-		blitzedItemCode := "564161"
+		blitzedItemCode := itemCode
 		blitzedItemAmount := "2"
 		blitzedItemUnitOfMeasurement := "PL"
 
 		initialUnloadCheckResponse := UnloadCheckResponse{
-			Id: unloadId,
-			Orders: []OrderCheckResponse{{
+			Id:                  unloadId,
+			Orders:              []OrderCheckResponse{{
 				Id:   orderId,
 				Code: orderCode,
 				Items: []ItemCheckResponse{{
-					CheckId:            "",
-					Code:               "",
-					Description:        "",
-					Batch:              "",
-					UnitsOfMeasurement: nil,
-					UnitOfMeasurement:  "",
-					ManufactureDate:    "",
-					Document:           DocumentResponse{},
+					CheckId:            itemCheckId,
+					Code:               itemCode,
+					Description:        itemDescription,
+					Batch:              itemBatch,
+					UnitsOfMeasurement: itemUnitsOfMeasurement,
+					UnitOfMeasurement:  itemUnitOfMeasurement,
+					ManufactureDate:    itemManufactureDate,
+					Document:           DocumentResponse{
+						Code: documentCode,
+						Id:   documentId,
+					},
 				}},
 				Type: orderType,
 				BlitzedItems: []BlitzedItemResponse{{
@@ -133,11 +191,7 @@ func Benchmark_encode_UnloadCheckResponse_with_easyjson(b *testing.B) {
 			LocationCode:        locationCode,
 		}
 
-		assertUnloadCheckResponse := UnloadCheckResponse{}
-
-		jsn, _ := easyjson.Marshal(&initialUnloadCheckResponse)
-
-		easyjson.Unmarshal(jsn, &assertUnloadCheckResponse)
+		easyjson.Marshal(&initialUnloadCheckResponse)
 	}
 }
 
@@ -154,25 +208,41 @@ func Benchmark_encode_UnloadCheckResponse_with_json(b *testing.B) {
 		orderCode := "0004"
 		orderType := "OD"
 
+		//ITEM CHECK
+		itemCheckId := "F7FA6B06-299D-4540-BB05-ACCA4674ED0C"
+		itemCode := "564161"
+		itemBatch := "ASDAD87989"
+		itemDescription := "GFA VIDRO 1L"
+		itemUnitsOfMeasurement := []string {"PL", "UN", "CX"}
+		itemUnitOfMeasurement := "UN"
+		itemManufactureDate := "04/04/2020"
+
+		//DOCUMENT
+		documentId := orderId
+		documentCode := orderCode
+
 		//BLITZED ITEM
-		blitzedItemCode := "564161"
+		blitzedItemCode := itemCode
 		blitzedItemAmount := "2"
 		blitzedItemUnitOfMeasurement := "PL"
 
 		initialUnloadCheckResponse := UnloadCheckResponse{
-			Id: unloadId,
-			Orders: []OrderCheckResponse{{
+			Id:                  unloadId,
+			Orders:              []OrderCheckResponse{{
 				Id:   orderId,
 				Code: orderCode,
 				Items: []ItemCheckResponse{{
-					CheckId:            "",
-					Code:               "",
-					Description:        "",
-					Batch:              "",
-					UnitsOfMeasurement: nil,
-					UnitOfMeasurement:  "",
-					ManufactureDate:    "",
-					Document:           DocumentResponse{},
+					CheckId:            itemCheckId,
+					Code:               itemCode,
+					Description:        itemDescription,
+					Batch:              itemBatch,
+					UnitsOfMeasurement: itemUnitsOfMeasurement,
+					UnitOfMeasurement:  itemUnitOfMeasurement,
+					ManufactureDate:    itemManufactureDate,
+					Document:           DocumentResponse{
+						Code: documentCode,
+						Id:   documentId,
+					},
 				}},
 				Type: orderType,
 				BlitzedItems: []BlitzedItemResponse{{
@@ -186,11 +256,7 @@ func Benchmark_encode_UnloadCheckResponse_with_json(b *testing.B) {
 			LocationCode:        locationCode,
 		}
 
-		assertUnloadCheckResponse := UnloadCheckResponse{}
-
-		jsn, _ := json.Marshal(&initialUnloadCheckResponse)
-
-		json.Unmarshal(jsn, &assertUnloadCheckResponse)
+		json.Marshal(&initialUnloadCheckResponse)
 	}
 }
 
