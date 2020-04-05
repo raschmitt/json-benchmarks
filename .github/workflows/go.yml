@@ -8,8 +8,8 @@ on:
 
 jobs:
 
-  build:
-    name: Build
+  build_test:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
 
