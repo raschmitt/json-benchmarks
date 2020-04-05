@@ -1,4 +1,4 @@
-# json-benchmarks
+# json-benchmarks ![Go](https://github.com/raschmitt/json-benchmarks/workflows/Go/badge.svg?branch=master)
 
 Repository dedicated to benchmark the encoding/decoding of jsons in go with the following packages:
 
