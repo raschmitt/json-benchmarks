@@ -11,9 +11,9 @@ type UnloadCheckResponse struct {
 type OrderCheckResponse struct {
 	Id		 		  						 string			`json:"id"`
 	Code 	   			    				 string 		`json:"code"`
-	Items   	  			    []ItemCheckResponse 		`json:"-"`
+	Items   	  			    []ItemCheckResponse 		`json:"items"`
 	Type				 					 string 		`json:"type"`
-	BlitzedItems 			  []BlitzedItemResponse 		`json:"blitzedItems,omitempty"`
+	BlitzedItems 			  []BlitzedItemResponse 		`json:"blitzedItems"`
 }
 
 type ItemCheckResponse struct {
@@ -21,9 +21,9 @@ type ItemCheckResponse struct {
 	Code         					   		 string     	`json:"code"`
 	Description        				  	 	 string     	`json:"description"`
 	Batch         					 	 	 string     	`json:"batch,omitempty"`
-	UnitsOfMeasurement  				   []string     	`json:"-"`
+	UnitsOfMeasurement  				   []string     	`json:"unitsOfMeasurement"`
 	UnitOfMeasurement  				   		 string     	`json:"unitOfMeasurement"`
-	ManufactureDate  				   	     string     	`json:"manufactureDate,omitempty"`
+	ManufactureDate  				   	     string     	`json:"manufactureDate"`
 	Document  				   	   DocumentResponse     	`json:"document"`
 }
 

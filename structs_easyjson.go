@@ -166,6 +166,29 @@ func easyjson6a975c40DecodeJsonBenchmark1(in *jlexer.Lexer, out *OrderCheckRespo
 			out.Id = string(in.String())
 		case "code":
 			out.Code = string(in.String())
+		case "items":
+			if in.IsNull() {
+				in.Skip()
+				out.Items = nil
+			} else {
+				in.Delim('[')
+				if out.Items == nil {
+					if !in.IsDelim(']') {
+						out.Items = make([]ItemCheckResponse, 0, 0)
+					} else {
+						out.Items = []ItemCheckResponse{}
+					}
+				} else {
+					out.Items = (out.Items)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v4 ItemCheckResponse
+					(v4).UnmarshalEasyJSON(in)
+					out.Items = append(out.Items, v4)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
 		case "type":
 			out.Type = string(in.String())
 		case "blitzedItems":
@@ -184,9 +207,9 @@ func easyjson6a975c40DecodeJsonBenchmark1(in *jlexer.Lexer, out *OrderCheckRespo
 					out.BlitzedItems = (out.BlitzedItems)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v4 BlitzedItemResponse
-					(v4).UnmarshalEasyJSON(in)
-					out.BlitzedItems = append(out.BlitzedItems, v4)
+					var v5 BlitzedItemResponse
+					(v5).UnmarshalEasyJSON(in)
+					out.BlitzedItems = append(out.BlitzedItems, v5)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -216,20 +239,38 @@ func easyjson6a975c40EncodeJsonBenchmark1(out *jwriter.Writer, in OrderCheckResp
 		out.String(string(in.Code))
 	}
 	{
+		const prefix string = ",\"items\":"
+		out.RawString(prefix)
+		if in.Items == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+			out.RawString("null")
+		} else {
+			out.RawByte('[')
+			for v6, v7 := range in.Items {
+				if v6 > 0 {
+					out.RawByte(',')
+				}
+				(v7).MarshalEasyJSON(out)
+			}
+			out.RawByte(']')
+		}
+	}
+	{
 		const prefix string = ",\"type\":"
 		out.RawString(prefix)
 		out.String(string(in.Type))
 	}
-	if len(in.BlitzedItems) != 0 {
+	{
 		const prefix string = ",\"blitzedItems\":"
 		out.RawString(prefix)
-		{
+		if in.BlitzedItems == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+			out.RawString("null")
+		} else {
 			out.RawByte('[')
-			for v5, v6 := range in.BlitzedItems {
-				if v5 > 0 {
+			for v8, v9 := range in.BlitzedItems {
+				if v8 > 0 {
 					out.RawByte(',')
 				}
-				(v6).MarshalEasyJSON(out)
+				(v9).MarshalEasyJSON(out)
 			}
 			out.RawByte(']')
 		}
@@ -287,6 +328,29 @@ func easyjson6a975c40DecodeJsonBenchmark2(in *jlexer.Lexer, out *ItemCheckRespon
 			out.Description = string(in.String())
 		case "batch":
 			out.Batch = string(in.String())
+		case "unitsOfMeasurement":
+			if in.IsNull() {
+				in.Skip()
+				out.UnitsOfMeasurement = nil
+			} else {
+				in.Delim('[')
+				if out.UnitsOfMeasurement == nil {
+					if !in.IsDelim(']') {
+						out.UnitsOfMeasurement = make([]string, 0, 4)
+					} else {
+						out.UnitsOfMeasurement = []string{}
+					}
+				} else {
+					out.UnitsOfMeasurement = (out.UnitsOfMeasurement)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v10 string
+					v10 = string(in.String())
+					out.UnitsOfMeasurement = append(out.UnitsOfMeasurement, v10)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
 		case "unitOfMeasurement":
 			out.UnitOfMeasurement = string(in.String())
 		case "manufactureDate":
@@ -328,11 +392,27 @@ func easyjson6a975c40EncodeJsonBenchmark2(out *jwriter.Writer, in ItemCheckRespo
 		out.String(string(in.Batch))
 	}
 	{
+		const prefix string = ",\"unitsOfMeasurement\":"
+		out.RawString(prefix)
+		if in.UnitsOfMeasurement == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+			out.RawString("null")
+		} else {
+			out.RawByte('[')
+			for v11, v12 := range in.UnitsOfMeasurement {
+				if v11 > 0 {
+					out.RawByte(',')
+				}
+				out.String(string(v12))
+			}
+			out.RawByte(']')
+		}
+	}
+	{
 		const prefix string = ",\"unitOfMeasurement\":"
 		out.RawString(prefix)
 		out.String(string(in.UnitOfMeasurement))
 	}
-	if in.ManufactureDate != "" {
+	{
 		const prefix string = ",\"manufactureDate\":"
 		out.RawString(prefix)
 		out.String(string(in.ManufactureDate))
