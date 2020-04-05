@@ -55,7 +55,7 @@ func Test_should_decode_UnloadCheckResponse_with_easyjson(t *testing.T) {
 
 	assert.So(unloadCheckResponse, should.HaveSameTypeAs, UnloadCheckResponse{})
 
-	assert.So(unloadCheckResponse.Id, should.Equal, unloadId)
+	assert.So(unloadCheckResponse.Id, should.Equal, "bacon")
 	assert.So(unloadCheckResponse.Status, should.Equal, unloadStatus)
 	assert.So(unloadCheckResponse.TransportIdentifier, should.Equal, transportIdentifier)
 	assert.So(unloadCheckResponse.LocationCode, should.Equal, locationCode)
